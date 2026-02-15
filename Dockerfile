@@ -32,6 +32,7 @@ COPY --from=build /opt/app/package.json ./
 COPY --from=build /opt/app/public ./public
 COPY --from=build /opt/app/favicon.png ./
 COPY --from=build /opt/app/scripts ./scripts
+COPY --from=build /opt/app/config ./config
 
 RUN chown -R node:node /opt/app
 
