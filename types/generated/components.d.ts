@@ -43,6 +43,37 @@ export interface BlocksHero extends Struct.ComponentSchema {
   };
 }
 
+export interface BlocksStatItem extends Struct.ComponentSchema {
+  collectionName: 'components_blocks_stat_items';
+  info: {
+    displayName: 'stat-item';
+    icon: 'dashboard';
+  };
+  attributes: {
+    label: Schema.Attribute.String;
+    value: Schema.Attribute.String;
+  };
+}
+
+export interface BlocksTeam extends Struct.ComponentSchema {
+  collectionName: 'components_blocks_teams';
+  info: {
+    displayName: 'team';
+    icon: 'user';
+  };
+  attributes: {
+    ctaButton: Schema.Attribute.Component<'shared.cta-button', false>;
+    ctaDescription: Schema.Attribute.Text;
+    ctaTitle: Schema.Attribute.String;
+    heading: Schema.Attribute.String;
+    image: Schema.Attribute.Media<'images' | 'videos'>;
+    infoDescription: Schema.Attribute.Text;
+    infoTitle: Schema.Attribute.String;
+    stats: Schema.Attribute.Component<'blocks.stat-item', true>;
+    subheading: Schema.Attribute.Text;
+  };
+}
+
 export interface FooterColumn extends Struct.ComponentSchema {
   collectionName: 'components_footer_columns';
   info: {
@@ -203,6 +234,8 @@ declare module '@strapi/strapi' {
       'blocks.about-card-item': BlocksAboutCardItem;
       'blocks.about-cards': BlocksAboutCards;
       'blocks.hero': BlocksHero;
+      'blocks.stat-item': BlocksStatItem;
+      'blocks.team': BlocksTeam;
       'footer.column': FooterColumn;
       'footer.social-link': FooterSocialLink;
       'global.footer': GlobalFooter;
