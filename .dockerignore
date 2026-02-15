@@ -1,0 +1,15 @@
+.git
+.env
+node_modules
+dist
+build
+.tmp
+.cache
+.strapi
+.strapi-updater.json
+.strapi-cloud.json
+.idea
+*.log
+license.txt
+exports
+data
