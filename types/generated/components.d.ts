@@ -1,5 +1,126 @@
 import type { Schema, Struct } from '@strapi/strapi';
 
+export interface BlocksAboutCardItem extends Struct.ComponentSchema {
+  collectionName: 'components_blocks_about_card_items';
+  info: {
+    displayName: 'about-card-item';
+  };
+  attributes: {
+    cta: Schema.Attribute.String;
+    description: Schema.Attribute.Text & Schema.Attribute.Required;
+    scrollTarget: Schema.Attribute.String;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+    variant: Schema.Attribute.Enumeration<['light', 'dark']> &
+      Schema.Attribute.Required;
+  };
+}
+
+export interface BlocksAboutCards extends Struct.ComponentSchema {
+  collectionName: 'components_blocks_about_cards';
+  info: {
+    displayName: 'about-cards';
+    icon: 'apps';
+  };
+  attributes: {
+    cards: Schema.Attribute.Component<'blocks.about-card-item', true> &
+      Schema.Attribute.Required;
+    heading: Schema.Attribute.String;
+    subheading: Schema.Attribute.Text;
+  };
+}
+
+export interface BlocksHero extends Struct.ComponentSchema {
+  collectionName: 'components_blocks_heroes';
+  info: {
+    displayName: 'hero';
+    icon: 'cast';
+  };
+  attributes: {
+    backgroundImage: Schema.Attribute.Media<'images' | 'files' | 'videos'>;
+    ctaButtons: Schema.Attribute.Component<'shared.cta-button', true>;
+    subtitle: Schema.Attribute.Text;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface FooterColumn extends Struct.ComponentSchema {
+  collectionName: 'components_footer_columns';
+  info: {
+    displayName: 'column';
+    icon: 'bulletList';
+  };
+  attributes: {
+    links: Schema.Attribute.Component<'shared.link', true>;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface FooterSocialLink extends Struct.ComponentSchema {
+  collectionName: 'components_footer_social_links';
+  info: {
+    displayName: 'social-link';
+    icon: 'twitter';
+  };
+  attributes: {
+    icon: Schema.Attribute.Media<'images'>;
+    platform: Schema.Attribute.String & Schema.Attribute.Required;
+    url: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface GlobalFooter extends Struct.ComponentSchema {
+  collectionName: 'components_global_footers';
+  info: {
+    displayName: 'footer';
+    icon: 'stack';
+  };
+  attributes: {
+    columns: Schema.Attribute.Component<'footer.column', true>;
+    copyright: Schema.Attribute.String;
+    socialLinks: Schema.Attribute.Component<'footer.social-link', true>;
+  };
+}
+
+export interface GlobalHeader extends Struct.ComponentSchema {
+  collectionName: 'components_global_headers';
+  info: {
+    displayName: 'header';
+    icon: 'pin';
+  };
+  attributes: {
+    ctaButton: Schema.Attribute.Component<'shared.cta-button', false>;
+    logo: Schema.Attribute.Media<'images'>;
+    navItems: Schema.Attribute.Component<'shared.nav-item', true>;
+  };
+}
+
+export interface SharedCtaButton extends Struct.ComponentSchema {
+  collectionName: 'components_shared_cta_buttons';
+  info: {
+    displayName: 'cta-button';
+    icon: 'chartBubble';
+  };
+  attributes: {
+    href: Schema.Attribute.String;
+    scrollTo: Schema.Attribute.String;
+    text: Schema.Attribute.String & Schema.Attribute.Required;
+    variant: Schema.Attribute.Enumeration<
+      ['default', 'glass', 'white', 'secondary']
+    >;
+  };
+}
+
+export interface SharedLink extends Struct.ComponentSchema {
+  collectionName: 'components_shared_links';
+  info: {
+    displayName: 'link';
+  };
+  attributes: {
+    href: Schema.Attribute.String & Schema.Attribute.Required;
+    label: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface SharedMedia extends Struct.ComponentSchema {
   collectionName: 'components_shared_media';
   info: {
@@ -8,6 +129,19 @@ export interface SharedMedia extends Struct.ComponentSchema {
   };
   attributes: {
     file: Schema.Attribute.Media<'images' | 'files' | 'videos'>;
+  };
+}
+
+export interface SharedNavItem extends Struct.ComponentSchema {
+  collectionName: 'components_shared_nav_items';
+  info: {
+    displayName: 'nav-item';
+    icon: 'bulletList';
+  };
+  attributes: {
+    href: Schema.Attribute.String;
+    label: Schema.Attribute.String & Schema.Attribute.Required;
+    scrollTo: Schema.Attribute.String;
   };
 }
 
@@ -39,14 +173,15 @@ export interface SharedSeo extends Struct.ComponentSchema {
   collectionName: 'components_shared_seos';
   info: {
     description: '';
-    displayName: 'Seo';
+    displayName: 'seo';
     icon: 'allergies';
     name: 'Seo';
   };
   attributes: {
-    metaDescription: Schema.Attribute.Text & Schema.Attribute.Required;
-    metaTitle: Schema.Attribute.String & Schema.Attribute.Required;
-    shareImage: Schema.Attribute.Media<'images'>;
+    description: Schema.Attribute.Text & Schema.Attribute.Required;
+    keywords: Schema.Attribute.String;
+    ogImage: Schema.Attribute.Media<'images'>;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
   };
 }
 
@@ -65,7 +200,17 @@ export interface SharedSlider extends Struct.ComponentSchema {
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
+      'blocks.about-card-item': BlocksAboutCardItem;
+      'blocks.about-cards': BlocksAboutCards;
+      'blocks.hero': BlocksHero;
+      'footer.column': FooterColumn;
+      'footer.social-link': FooterSocialLink;
+      'global.footer': GlobalFooter;
+      'global.header': GlobalHeader;
+      'shared.cta-button': SharedCtaButton;
+      'shared.link': SharedLink;
       'shared.media': SharedMedia;
+      'shared.nav-item': SharedNavItem;
       'shared.quote': SharedQuote;
       'shared.rich-text': SharedRichText;
       'shared.seo': SharedSeo;
