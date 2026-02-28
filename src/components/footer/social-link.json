@@ -6,10 +6,6 @@
   },
   "options": {},
   "attributes": {
-    "platform": {
-      "type": "string",
-      "required": true
-    },
     "url": {
       "type": "string",
       "required": true

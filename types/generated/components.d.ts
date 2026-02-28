@@ -29,6 +29,30 @@ export interface BlocksAboutCards extends Struct.ComponentSchema {
   };
 }
 
+export interface BlocksBenefitItem extends Struct.ComponentSchema {
+  collectionName: 'components_blocks_benefit_items';
+  info: {
+    displayName: 'benefit-item';
+  };
+  attributes: {
+    text: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface BlocksFeedbackForm extends Struct.ComponentSchema {
+  collectionName: 'components_blocks_feedback_forms';
+  info: {
+    displayName: 'feedback-form';
+    icon: 'envelop';
+  };
+  attributes: {
+    benefits: Schema.Attribute.Component<'blocks.benefit-item', true>;
+    benefitsHeading: Schema.Attribute.String;
+    subtitle: Schema.Attribute.Text;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface BlocksHero extends Struct.ComponentSchema {
   collectionName: 'components_blocks_heroes';
   info: {
@@ -94,7 +118,6 @@ export interface FooterSocialLink extends Struct.ComponentSchema {
   };
   attributes: {
     icon: Schema.Attribute.Media<'images'>;
-    platform: Schema.Attribute.String & Schema.Attribute.Required;
     url: Schema.Attribute.String & Schema.Attribute.Required;
   };
 }
@@ -233,6 +256,8 @@ declare module '@strapi/strapi' {
     export interface ComponentSchemas {
       'blocks.about-card-item': BlocksAboutCardItem;
       'blocks.about-cards': BlocksAboutCards;
+      'blocks.benefit-item': BlocksBenefitItem;
+      'blocks.feedback-form': BlocksFeedbackForm;
       'blocks.hero': BlocksHero;
       'blocks.stat-item': BlocksStatItem;
       'blocks.team': BlocksTeam;
